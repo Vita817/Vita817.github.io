@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vita’s Journal — 马丽祈 | Personal Archive & Visual Journal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Space Grotesk, Inter, Noto Sans SC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Dominant Grey-Blue (~50%)
+                        slateBlue: {
+                            DEFAULT: '#688291',
+                            dark: '#4B6270',
+                            deep: '#23333D',
+                            light: '#809AA9',
+                            soft: '#9EB3C2'
+                        },
+                        // Accent Terracotta Red (~25%)
+                        brickRed: {
+                            DEFAULT: '#C94E38',
+                            hover: '#AA3D28',
+                            dark: '#852A18',
+                            soft: '#F6E5E2'
+                        },
+                        // Cream / Off-white Containers (~25%)
+                        cream: {
+                            DEFAULT: '#F7F4EE',
+                            pure: '#FFFFFF',
+                            card: '#FAF8F4',
+                            border: '#E3DDD3',
+                            muted: '#D5CDC0'
+                        },
+                        textDark: '#1C272C',
+                        textMuted: '#58676E'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Modern background using dominant slate/grey-blue */
+        body {
+            background-color: #688291;
+            color: #1C272C;
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Subtle ambient texture overlay */
+        .ambient-texture {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Custom slim horizontal scrollbar for photo rail */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(35, 51, 61, 0.25);
+            border-radius: 9999px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #C94E38;
+            border-radius: 9999px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #AA3D28;
+        }
+
+        /* Staggered Scroll-triggered Animation Utility */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-element.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Active Directory indicator line */
+        .dir-link.active {
+            color: #FFFFFF !important;
+            font-weight: 700;
+            padding-left: 0.75rem;
+            border-left: 3px solid #C94E38;
+        }
+
+        /* Glassmorphism Dynamic State */
+        .glass-scrolled {
+            background-color: rgba(35, 51, 61, 0.88) !important;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body class="ambient-texture text-textDark antialiased selection:bg-brickRed selection:text-white">
+
+    <!-- DATA CONFIGURATION FOR VITA'S JOURNAL -->
+    <script>
+        window.VITA_DATA = {
+            site: {
+                title: "VITA'S JOURNAL",
+                chineseName: "马丽祈",
+                subtitle: "THE OPEN FILE · ARCHIVE & VISUAL JOURNAL",
+                welcome: "WELCOME TO THE ARCHIVE",
+                chineseWelcome: "你好，欢迎来到我的个人档案。",
+                intro: "A curated personal space combining editorial magazine layout with visual storytelling, career milestones, and personal perspectives."
+            },
+            profile: {
+                nameCn: "马丽祈",
+                nameEn: "Vita",
+                mbti: "ENTJ",
+                hometown: "中国广东顺德人",
+                email: "yueshangzhiya@qq.com",
+                quote: "Life is tough, so am I.",
+                coreValues: ["真诚", "责任感", "秩序感", "热情", "创造力", "探索", "务实"],
+                interests: ["烹饪", "剪辑", "运动", "阅读", "电影", "旅行"]
+            },
+            photos: [
+                // HOME HERO PHOTO WALL (P01-P06)
+                { id: "P01", section: "HOME", title: "HERO SELECTION 01", chineseTitle: "精选照片 01", caption: "[P01] Homepage Hero Wall - Archival Image Placeholder", chineseCaption: "【占位示例 P01】首页照片墙",  "photo/P01.jpg", aspect: "portrait" },
+                { id: "P02", section: "HOME", title: "HERO SELECTION 02", chineseTitle: "精选照片 02", caption: "[P02] Homepage Hero Wall - Landscape Image Placeholder", chineseCaption: "【占位示例 P02】首页照片墙", url: "photo/P02.jpg", aspect: "landscape" },
+                { id: "P03", section: "HOME", title: "HERO SELECTION 03", chineseTitle: "精选照片 03", caption: "[P03] Homepage Hero Wall - Detail Image Placeholder", chineseCaption: "【占位示例 P03】首页照片墙", url: "photo/P03.jpg", aspect: "portrait" },
+                { id: "P04", section: "HOME", title: "HERO SELECTION 04", chineseTitle: "精选照片 04", caption: "[P04] Homepage Hero Wall - Square Tone Card", chineseCaption: "【占位示例 P04】首页照片墙", url: "photo/P04.jpg", aspect: "square" },
+                { id: "P05", section: "HOME", title: "HERO SELECTION 05", chineseTitle: "精选照片 05", caption: "[P05] Homepage Hero Wall - Portrait Capture", chineseCaption: "【占位示例 P05】首页照片墙", url: "photo/P05.jpg", aspect: "portrait" },
+                { id: "P06", section: "HOME", title: "HERO SELECTION 06", chineseTitle: "精选照片 06", caption: "[P06] Homepage Hero Wall - Closing Frame", chineseCaption: "【占位示例 P06】首页照片墙", url: "photo/P06.jpg", aspect: "landscape" },
+                
+                // ABOUT ME PORTRAIT (P07)
+                { id: "P07", section: "ABOUT", title: "PERSONAL PORTRAIT", chineseTitle: "个人肖像 / 主视觉", caption: "[P07] Personal Editorial Portrait for Vita", chineseCaption: "【占位示例 P07】个人肖像照片", url: "photo/P07.jpg", aspect: "portrait" },
+
+                // CAREER PHOTO WALL (P08-P12)
+                { id: "P08", section: "CAREER_WALL", title: "CAREER SNAPSHOT 01", chineseTitle: "职业记录 01", caption: "[P08] Lemon Tea Shop Part-time Experience", chineseCaption: "【占位示例 P08】林里手打柠檬茶经历照片", url: "photo/P08.jpg", aspect: "portrait" },
+                { id: "P09", section: "CAREER_WALL", title: "CAREER SNAPSHOT 02", chineseTitle: "职业记录 02", caption: "[P09] English Outdoor Kids Activity Leader", chineseCaption: "【占位示例 P09】英语遛娃带队活动照片", url: "photo/P09.jpg", aspect: "landscape" },
+                { id: "P10", section: "CAREER_WALL", title: "CAREER SNAPSHOT 03", chineseTitle: "职业记录 03", caption: "[P10] TikTok US E-commerce Host Stream", chineseCaption: "【占位示例 P10】TikTok美区带货主播经历照片", url: "photo/P10.jpg", aspect: "portrait" },
+                { id: "P11", section: "CAREER_WALL", title: "CAREER SNAPSHOT 04", chineseTitle: "职业记录 04", caption: "[P11] New Oriental TMK Telemarketing", chineseCaption: "【占位示例 P11】新东方TMK电话销售经历照片", url: "photo/P11.jpg", aspect: "landscape" },
+                { id: "P12", section: "CAREER_WALL", title: "CAREER SNAPSHOT 05", chineseTitle: "职业记录 05", caption: "[P12] Xiaohongshu Blogger Footprint", chineseCaption: "【占位示例 P12】小红书博主探索照片", url: "photo/P12.jpg", aspect: "portrait" },
+
+                // STORIES PHOTOS (P13-P16)
+                { id: "P13", section: "STORIES", title: "EXTENDED FAMILY", chineseTitle: "大家庭的温情", caption: "[P13] Growing up in a big family.", chineseCaption: "我从小成长在一个大家庭里。长大后，聚会的机会少了很多，但我们始终感到与彼此紧密相连。", url: "photo/P13.jpg", aspect: "landscape" },
+                { id: "P14", section: "STORIES", title: "IMMEDIATE FAMILY", chineseTitle: "成都旅行小家庭", caption: "[P14] Family restaurant selection in Chengdu.", chineseCaption: "我现在生活的小家庭：爸爸、妈妈、妹妹、弟弟。这是我在成都旅行时为大家选的餐厅，大家都很喜欢。", url: "photo/P14.jpg", aspect: "landscape" },
+                { id: "P15", section: "STORIES", title: "CELTIC FC FRIENDS", chineseTitle: "郑州凯尔特人足球俱乐部", caption: "[P15] Zhengzhou Celtic Football Club members.", chineseCaption: "这是郑州凯尔特人足球俱乐部的成员们。感谢Martin把我们聚集在一起，超开心拥有这么多热血友谊。", url: "photo/P15.jpg", aspect: "landscape" },
+                { id: "P16", section: "STORIES", title: "BUSINESS SCHOOL BASKETBALL", chineseTitle: "商学院女子篮球队", caption: "[P16] Business School Basketball Team.", chineseCaption: "商学院篮球队的女孩儿们。篮球新手的我，在这里受到了超多鼓励。可惜队长回台湾了不在这里，没关系彩瑜姐，你在我们心里。", url: "photo/P16.jpg", aspect: "landscape" },
+
+                // COOKING WORKS (P17-P24)
+                { id: "P17", section: "COOKING", title: "COOKING WORK 01", chineseTitle: "烹饪作品 01", caption: "[P17] Culinary Creation 01", chineseCaption: "烹饪作品 P17", url: "photo/P17.jpg", aspect: "square" },
+                { id: "P18", section: "COOKING", title: "COOKING WORK 02", chineseTitle: "烹饪作品 02", caption: "[P18] Culinary Creation 02", chineseCaption: "烹饪作品 P18", url: "photo/P18.jpg", aspect: "square" },
+                { id: "P19", section: "COOKING", title: "COOKING WORK 03", chineseTitle: "烹饪作品 03", caption: "[P19] Culinary Creation 03", chineseCaption: "烹饪作品 P19", url: "photo/P19.jpg", aspect: "square" },
+                { id: "P20", section: "COOKING", title: "COOKING WORK 04", chineseTitle: "烹饪作品 04", caption: "[P20] Culinary Creation 04", chineseCaption: "烹饪作品 P20", url: "photo/P20.jpg", aspect: "square" },
+                { id: "P21", section: "COOKING", title: "COOKING WORK 05", chineseTitle: "烹饪作品 05", caption: "[P21] Culinary Creation 05", chineseCaption: "烹饪作品 P21", url: "photo/P21.jpg", aspect: "square" },
+                { id: "P22", section: "COOKING", title: "COOKING WORK 06", chineseTitle: "烹饪作品 06", caption: "[P22] Culinary Creation 06", chineseCaption: "烹饪作品 P22", url: "photo/P22.jpg", aspect: "square" },
+                { id: "P23", section: "COOKING", title: "COOKING WORK 07", chineseTitle: "烹饪作品 07", caption: "[P23] Culinary Creation 07", chineseCaption: "烹饪作品 P23", url: "photo/P23.jpg", aspect: "square" },
+                { id: "P24", section: "COOKING", title: "COOKING WORK 08", chineseTitle: "烹饪作品 08", caption: "[P24] Culinary Creation 08", chineseCaption: "烹饪作品 P24", url: "photo/P24.jpg", aspect: "square" }
+            ],
+            career: [
+                {
+                    id: "C01",
+                    type: "parttime",
+                    titleEn: "HAND-CRUSHED LEMON TEA STAFF",
+                    titleCn: "林里手打柠檬茶店员 (Part-time)",
+                    period: "2025.7",
+                    content: "我的第一份工作。说实话，也是第一次和社会上的各种类型的人打交道，彼时的我还是一个单纯清澈的大学生，觉得这份时薪15的工作简直是不可多得的好机会。于是每天发狠了地锤锤锤柠檬，就算手掌虎口肿胀酸痛也乐在其中。谢谢店长大哥、姐姐和阿哲的包容和指导，我开始学着如何与人沟通、相处。当然，也收获了美味的柠檬茶配方和一笔属于自己的零花钱。"
+                },
+                {
+                    id: "C02",
+                    type: "parttime",
+                    titleEn: "ENGLISH KIDS OUTDOOR ACTIVITY LEADER",
+                    titleCn: "英语遛娃带队老师 (Part-time)",
+                    period: "2025.9 - 2026.3",
+                    content: "当我一开始听到这个工作是全英课堂的老师时，我其实有点担心：我很清晰我是一只菜鸟。但随之而来的巨大的兴奋和期待马上盖过了担忧，太有挑战性了，好喜欢。于是在面试顺利通过后就跟着梦姐开始带队了。我们去了郊外的柿子园、郑州植物园、披萨店等很多地方，组织了超多有意思的游戏和活动（有时候家长也会兴冲冲地加入）。和孩子一起玩儿真的快乐！并且，由于是全英语课堂，这个工作促使我英语口语提升了很多。"
+                },
+                {
+                    id: "C03",
+                    type: "internship",
+                    titleEn: "TIKTOK US LIVESTREAM E-COMMERCE HOST",
+                    titleCn: "跨境电商TikTok美区带货主播 (Internship)",
+                    period: "2026.5 - 2026.9",
+                    content: "我一直渴求一个机会能和外国友人直接的沟通。所以就算需要通勤1小时，我也心甘情愿地接受了这个Offer。我们一般中午或下午播，这样对应的就是那边的半夜或早上。在TikTok美区的直播间里，我介绍和推销公司的解压产品（捏捏），回答公屏的问题，甚至收获了一些粉丝（每周五准时蹲我直播间的朋友们）。我交了很多美国好朋友，捏捏也很好玩。在工作过程中，我还大概了解了跨境电商的流程步骤，提升了作为主播、产品销售的素养与能力。"
+                },
+                {
+                    id: "C04",
+                    type: "internship",
+                    titleEn: "NEW ORIENTAL TMK TELEMARKETING SPECIALIST",
+                    titleCn: "新东方TMK电话销售 (Internship)",
+                    period: "2026.10 - PRESENT",
+                    content: "出于对这个电销行业的好奇以及冲着新东方的巨大名气，我面试并通过了这份工作。参加完两天的简单培训后，我上岗了。面对未知的客户，我需要在两三句话内就判断出ta是否有意向、需求与通电是什么。在这里，我不仅提高了临场应变的能力，还学会了面对棘手的客户时，如何沟通才能最大效率促成交易。"
+                },
+                {
+                    id: "C05",
+                    type: "parttime",
+                    titleEn: "RED / XIAOHONGSHU CONTENT CREATOR",
+                    titleCn: "小红书博主 (Part-time)",
+                    period: "2026.3 - PRESENT",
+                    content: "还在起步阶段，成功了我将会在个人博客上展示我的主页。当然，其实迈出第一步时，我就知道我不会失败。"
+                }
+            ],
+            books: ["《悲惨世界》", "《百年孤独》", "《穷查理箴言》", "《了不起的盖茨比》", "《不原谅也没关系》", "《非暴力沟通》", "《生活蒙太奇》", "《杀死一只知更鸟》"],
+            movies: ["《楚门的世界》", "《阿凡达》", "《乱世佳人》", "《无间道》", "《爱乐之城》", "《美丽人生》", "《阿甘正传》", "《布达佩斯大饭店》", "《了不起的盖茨比》", "《整蛊专家》", "《律政俏佳人》", "《暮光之城》", "《穿普拉达的女王》", "《霸王别姬》", "《冰雪奇缘1》"],
+            shows: ["《Friends》", "《Modern Family》", "《Shameless》"]
+        };
+    </script>
+
+    <!-- STICKY GLASSMORPHISM HEADER NAVIGATION -->
+    <header id="main-header" class="sticky top-0 z-40 bg-slateBlue-deep/70 backdrop-blur-md border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#home" class="flex items-baseline space-x-2 group">
+                <span class="font-display text-xl sm:text-2xl font-bold tracking-tight text-white group-hover:text-brickRed transition-colors">
+                    VITA'S JOURNAL
+                </span>
+                <span class="text-[11px] font-sans font-medium text-slateBlue-soft bg-white/10 px-2 py-0.5 rounded border border-white/10">
+                    马丽祈
+                </span>
+            </a>
+
+            <!-- Primary Section Quick-Jump Links -->
+            <nav class="hidden lg:flex items-center space-x-6 text-xs font-display font-semibold uppercase tracking-wider text-slateBlue-soft">
+                <a href="#home" class="hover:text-white transition-colors flex items-center gap-1.5 py-1">
+                    <span>01. HOME</span>
+                    <span class="text-[10px] text-white/50 font-normal font-sans">首页</span>
+                </a>
+                <a href="#about" class="hover:text-white transition-colors flex items-center gap-1.5 py-1">
+                    <span>02. ABOUT</span>
+                    <span class="text-[10px] text-white/50 font-normal font-sans">关于我</span>
+                </a>
+                <a href="#career" class="hover:text-white transition-colors flex items-center gap-1.5 py-1">
+                    <span>03. CAREER</span>
+                    <span class="text-[10px] text-white/50 font-normal font-sans">职业经历</span>
+                </a>
+                <a href="#stories" class="hover:text-white transition-colors flex items-center gap-1.5 py-1">
+                    <span>04. STORIES</span>
+                    <span class="text-[10px] text-white/50 font-normal font-sans">故事</span>
+                </a>
+                <a href="#misc" class="hover:text-white transition-colors flex items-center gap-1.5 py-1">
+                    <span>05. MISC</span>
+                    <span class="text-[10px] text-white/50 font-normal font-sans">兴趣与技能</span>
+                </a>
+            </nav>
+
+            <!-- Action Buttons Suite -->
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <button onclick="toggleQuickJumpBar()" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-display font-medium text-white bg-brickRed hover:bg-brickRed-hover active:scale-95 rounded-md transition-all shadow-sm">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>JUMP BAR</span>
+                </button>
+
+                <button onclick="openResumeModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-display font-medium text-textDark bg-cream hover:bg-white active:scale-95 rounded-md transition-all shadow-sm">
+                    <i class="fa-solid fa-file-pdf text-brickRed"></i>
+                    <span>RESUME</span>
+                </button>
+
+                <button onclick="openContactSheet()" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-display font-medium text-white bg-white/10 hover:bg-white/20 active:scale-95 rounded-md border border-white/20 transition-all">
+                    <i class="fa-solid fa-paper-plane text-slateBlue-soft"></i>
+                    <span>CONTACT</span>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-white hover:text-brickRed focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Jump Popover Bar -->
+        <div id="quick-jump-bar" class="hidden bg-slateBlue-deep border-b border-white/10 px-4 py-3">
+            <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs text-white">
+                <span class="font-display font-bold text-brickRed uppercase tracking-widest"><i class="fa-solid fa-bolt mr-1"></i> Quick Jump / 快速直达:</span>
+                <div class="flex flex-wrap items-center gap-2">
+                    <a href="#home" onclick="toggleQuickJumpBar()" class="px-2.5 py-1 rounded bg-white/10 hover:bg-brickRed transition-colors">Hero Wall / 照片墙</a>
+                    <a href="#about" onclick="toggleQuickJumpBar()" class="px-2.5 py-1 rounded bg-white/10 hover:bg-brickRed transition-colors">Profile / 关于我</a>
+                    <a href="#career" onclick="toggleQuickJumpBar()" class="px-2.5 py-1 rounded bg-white/10 hover:bg-brickRed transition-colors">Career & Wall / 职业与照片墙</a>
+                    <a href="#stories" onclick="toggleQuickJumpBar()" class="px-2.5 py-1 rounded bg-white/10 hover:bg-brickRed transition-colors">Story Grid / 故事记录</a>
+                    <a href="#misc" onclick="toggleQuickJumpBar()" class="px-2.5 py-1 rounded bg-white/10 hover:bg-brickRed transition-colors">Hobbies / 爱好与技能</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-slateBlue-deep border-b border-white/10 px-4 py-4 space-y-3 font-display text-sm text-white">
+            <a href="#home" onclick="toggleMobileMenu()" class="block py-2 border-b border-white/10">01. HOME / 首页</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block py-2 border-b border-white/10">02. ABOUT ME / 关于我</a>
+            <a href="#career" onclick="toggleMobileMenu()" class="block py-2 border-b border-white/10">03. CAREER / 职业经历</a>
+            <a href="#stories" onclick="toggleMobileMenu()" class="block py-2 border-b border-white/10">04. STORIES / 故事</a>
+            <a href="#misc" onclick="toggleMobileMenu()" class="block py-2">05. MISC. / 其他</a>
+        </div>
+    </header>
+
+    <!-- FLOATING SIDEBAR DIRECTORY (Desktop) -->
+    <aside class="hidden xl:block fixed left-6 top-36 z-30 w-44 bg-slateBlue-deep/60 backdrop-blur-md p-4 rounded-xl border border-white/10 text-xs shadow-lg">
+        <div class="font-display font-bold text-brickRed tracking-widest uppercase mb-3 flex items-center justify-between">
+            <span>DIRECTORY</span>
+            <span class="text-[10px] text-white/40">目录</span>
+        </div>
+        <nav class="space-y-2.5 font-display">
+            <a href="#home" id="dir-home" class="dir-link block text-slateBlue-soft hover:text-white transition-all">01. HOME</a>
+            <a href="#about" id="dir-about" class="dir-link block text-slateBlue-soft hover:text-white transition-all">02. ABOUT</a>
+            <a href="#career" id="dir-career" class="dir-link block text-slateBlue-soft hover:text-white transition-all">03. CAREER</a>
+            <a href="#stories" id="dir-stories" class="dir-link block text-slateBlue-soft hover:text-white transition-all">04. STORIES</a>
+            <a href="#misc" id="dir-misc" class="dir-link block text-slateBlue-soft hover:text-white transition-all">05. MISC</a>
+        </nav>
+        <div class="mt-4 pt-3 border-t border-white/10 text-[10px] text-white/50 space-y-1 font-sans">
+            <div><i class="fa-solid fa-circle text-[6px] text-emerald-400 mr-1"></i> System Active</div>
+            <div>Vita's Journal v2.0</div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-28 py-10">
+
+        <!-- SECTION 01: HOME / PERSONAL ARCHIVE -->
+        <section id="home" class="scroll-mt-28 space-y-10 reveal-element">
+            <!-- Hero Header Banner -->
+            <div class="bg-cream p-8 sm:p-12 rounded-2xl border border-cream-border shadow-xl space-y-6">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 bg-brickRed/10 border border-brickRed/30 rounded-full text-xs text-brickRed font-display font-semibold uppercase tracking-wider">
+                        <span class="w-2 h-2 rounded-full bg-brickRed animate-pulse"></span>
+                        PERSONAL ARCHIVE · 个人档案
+                    </span>
+                    <button onclick="toggleGuideModal()" class="text-xs font-display font-medium text-slateBlue-dark hover:text-brickRed transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-question text-brickRed"></i>
+                        <span>PHOTO MAPPING & REPLACEMENT GUIDE / 图片映射指南</span>
+                    </button>
+                </div>
+
+                <div class="space-y-2">
+                    <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-textDark">
+                        WELCOME TO THE ARCHIVE
+                    </h1>
+                    <p class="font-sans text-lg sm:text-xl text-brickRed font-medium">
+                        你好，欢迎来到我的个人档案。
+                    </p>
+                </div>
+
+                <p class="font-sans text-sm sm:text-base text-textMuted max-w-3xl leading-relaxed font-normal">
+                    这里是 Vita’s Journal (马丽祈) 的个人主页。呈现我的个人介绍、职业经历、故事记录和兴趣内容。
+                </p>
+
+                <!-- Action Button Rail in Hero -->
+                <div class="pt-2 flex flex-wrap items-center gap-3">
+                    <a href="#about" class="inline-flex items-center gap-2 px-5 py-2.5 bg-brickRed hover:bg-brickRed-hover active:scale-95 text-white font-display text-xs font-bold rounded-lg transition-all shadow-md">
+                        <span>EXPLORE ABOUT ME</span>
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </a>
+                    <button onclick="openContactSheet()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-slateBlue-dark hover:bg-slateBlue-deep active:scale-95 text-white font-display text-xs font-bold rounded-lg transition-all shadow-md">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>GET IN TOUCH / 联系沟通</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- HERO PHOTO WALL (INTERACTIVE RAIL WITH DRAG-SCROLL & SLIM SCROLLBAR) -->
+            <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-white">
+                    <div class="flex items-baseline space-x-3">
+                        <h2 class="font-display text-xl sm:text-2xl font-bold tracking-tight">FEATURED ARCHIVE</h2>
+                        <span class="text-xs font-sans text-slateBlue-soft">/ 首页照片墙 [P01–P06]</span>
+                    </div>
+                    <div class="flex items-center space-x-3 text-xs text-slateBlue-soft font-display">
+                        <span><i class="fa-solid fa-arrows-left-right text-brickRed mr-1"></i> DRAG & SCROLL / 按住拖动或滑动</span>
+                        <span class="bg-white/10 px-2 py-0.5 rounded text-[10px]">CLICK PHOTO TO ENLARGE</span>
+                    </div>
+                </div>
+
+                <!-- Custom Drag-to-Scroll Container with Visible Slim Scrollbar -->
+                <div class="relative bg-slateBlue-deep/60 p-4 rounded-xl border border-white/10 shadow-inner">
+                    <div id="gallery-track" class="flex space-x-5 overflow-x-auto custom-scrollbar pb-4 pt-1 cursor-grab active:cursor-grabbing">
+                        <!-- Populated dynamically by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 02: ABOUT ME -->
+        <section id="about" class="scroll-mt-28 space-y-8 reveal-element">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 text-white border-b border-white/10 pb-4">
+                <div>
+                    <div class="font-display text-xs font-bold text-brickRed tracking-widest uppercase">02. ABOUT ME</div>
+                    <h2 class="font-display text-2xl sm:text-4xl font-bold mt-1">PHILOSOPHY & PROFILE · 关于我</h2>
+                </div>
+                <div class="text-xs font-display text-slateBlue-soft bg-white/10 px-3 py-1.5 rounded border border-white/10">
+                    NAME: VITA / 马丽祈
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Left Side: Profile Card & Values -->
+                <div class="lg:col-span-7 bg-cream p-6 sm:p-8 rounded-2xl border border-cream-border shadow-lg flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <!-- Profile Metadata Header -->
+                        <div class="flex flex-wrap items-baseline justify-between gap-2 border-b border-cream-border pb-4">
+                            <div>
+                                <span class="text-xs font-display font-bold text-brickRed uppercase">PERSONAL INFORMATION</span>
+                                <h3 class="font-display text-2xl font-bold text-textDark">
+                                    马丽祈 <span class="text-base text-textMuted font-normal">(Vita)</span>
+                                </h3>
+                            </div>
+                            <span class="px-3 py-1 bg-brickRed text-white font-display text-xs font-bold rounded-full">
+                                MBTI: ENTJ
+                            </span>
+                        </div>
+
+                        <!-- Details Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-sans">
+                            <div class="p-3 bg-white rounded-lg border border-cream-border">
+                                <span class="block text-[10px] font-display font-bold text-textMuted uppercase">HOMETOWN / 籍贯</span>
+                                <span class="font-semibold text-textDark">中国广东顺德人</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-lg border border-cream-border">
+                                <span class="block text-[10px] font-display font-bold text-textMuted uppercase">EMAIL / 电子邮箱</span>
+                                <span class="font-semibold text-textDark select-all">yueshangzhiya@qq.com</span>
+                            </div>
+                        </div>
+
+                        <!-- Design Accent Quote -->
+                        <div class="p-4 bg-slateBlue-deep text-white rounded-xl border border-white/10 font-display space-y-1">
+                            <span class="text-[10px] text-brickRed font-bold tracking-widest uppercase">DESIGN ACCENT / 个人座右铭</span>
+                            <p class="text-lg font-bold italic tracking-wide">“ Life is tough, so am I. ”</p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Core Values / Interests Tab Switcher -->
+                    <div class="border-t border-cream-border pt-4 space-y-3">
+                        <div class="flex space-x-3 text-xs font-display font-bold">
+                            <button id="tab-btn-1" onclick="switchAboutTab(1)" class="px-3 py-1.5 rounded-md bg-brickRed text-white transition-all">CORE VALUES / 核心价值观</button>
+                            <button id="tab-btn-2" onclick="switchAboutTab(2)" class="px-3 py-1.5 rounded-md bg-cream-border text-textDark hover:bg-slateBlue-soft hover:text-white transition-all">INTERESTS / 个人兴趣</button>
+                        </div>
+
+                        <div id="tab-content-1" class="flex flex-wrap gap-2 pt-1">
+                            <!-- Populated dynamically -->
+                        </div>
+
+                        <div id="tab-content-2" class="hidden flex flex-wrap gap-2 pt-1">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Single Personal Photo Card (P07) -->
+                <div class="lg:col-span-5 bg-cream p-4 rounded-2xl border border-cream-border shadow-lg flex flex-col justify-between">
+                    <div class="relative overflow-hidden rounded-xl bg-slateBlue-dark group cursor-pointer flex-1 min-h-[380px]" onclick="handlePhotoClick('P07')">
+                        <img src="https://placehold.co/900x1200/23333D/FAF8F4?text=P07+VITA+PORTRAIT" alt="P07 Editorial Portrait" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 text-white text-xs font-display">
+                            <span><i class="fa-solid fa-expand mr-1.5"></i> ENLARGE PHOTO / 查看原图 [P07]</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center text-xs font-display text-textMuted px-1 pt-3">
+                        <span class="font-bold text-brickRed">[P07] VITA PORTRAIT</span>
+                        <span>个人肖像素材</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 03: CAREER -->
+        <section id="career" class="scroll-mt-28 space-y-10 reveal-element">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 text-white border-b border-white/10 pb-4">
+                <div>
+                    <div class="font-display text-xs font-bold text-brickRed tracking-widest uppercase">03. CAREER</div>
+                    <h2 class="font-display text-2xl sm:text-4xl font-bold mt-1">MILESTONES & EXPERIENCE · 职业经历</h2>
+                </div>
+                <!-- Interactive Career Filter Button Group -->
+                <div class="flex items-center space-x-2 text-xs font-display">
+                    <span class="text-slateBlue-soft">FILTER / 筛选:</span>
+                    <button onclick="filterCareer('all')" class="career-filter-btn px-2.5 py-1 rounded bg-brickRed text-white font-bold">ALL</button>
+                    <button onclick="filterCareer('internship')" class="career-filter-btn px-2.5 py-1 rounded bg-white/10 text-white hover:bg-white/20">INTERNSHIP</button>
+                    <button onclick="filterCareer('parttime')" class="career-filter-btn px-2.5 py-1 rounded bg-white/10 text-white hover:bg-white/20">PART-TIME</button>
+                </div>
+            </div>
+
+            <!-- CAREER PHOTO WALL (P08-P12) - DISTINCT FILMSTRIP GRID DESIGN -->
+            <div class="space-y-4">
+                <div class="flex justify-between items-baseline text-white">
+                    <h3 class="font-display text-lg font-bold tracking-tight">CAREER ARCHIVE GALLERY</h3>
+                    <span class="text-xs font-sans text-slateBlue-soft">/ 职业经历照片墙 [P08–P12]</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                    <div class="bg-cream p-2 rounded-xl border border-cream-border shadow-md cursor-pointer group" onclick="handlePhotoClick('P08')">
+                        <div class="h-36 overflow-hidden rounded-lg bg-slateBlue-dark">
+                            <img src="https://placehold.co/800x1000/23333D/FFFFFF?text=P08+LEMON+TEA" alt="P08" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="mt-2 text-[10px] font-display font-bold text-textDark text-center">[P08] 手打柠檬茶</div>
+                    </div>
+                    <div class="bg-cream p-2 rounded-xl border border-cream-border shadow-md cursor-pointer group" onclick="handlePhotoClick('P09')">
+                        <div class="h-36 overflow-hidden rounded-lg bg-slateBlue-dark">
+                            <img src="https://placehold.co/1000x800/C94E38/FFFFFF?text=P09+OUTDOOR+LEADER" alt="P09" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="mt-2 text-[10px] font-display font-bold text-textDark text-center">[P09] 英语遛娃带队</div>
+                    </div>
+                    <div class="bg-cream p-2 rounded-xl border border-cream-border shadow-md cursor-pointer group" onclick="handlePhotoClick('P10')">
+                        <div class="h-36 overflow-hidden rounded-lg bg-slateBlue-dark">
+                            <img src="https://placehold.co/800x1000/809AA9/FFFFFF?text=P10+TIKTOK+HOST" alt="P10" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="mt-2 text-[10px] font-display font-bold text-textDark text-center">[P10] TikTok美区主播</div>
+                    </div>
+                    <div class="bg-cream p-2 rounded-xl border border-cream-border shadow-md cursor-pointer group" onclick="handlePhotoClick('P11')">
+                        <div class="h-36 overflow-hidden rounded-lg bg-slateBlue-dark">
+                            <img src="https://placehold.co/1000x800/4B6270/FFFFFF?text=P11+NEW+ORIENTAL" alt="P11" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="mt-2 text-[10px] font-display font-bold text-textDark text-center">[P11] 新东方TMK</div>
+                    </div>
+                    <div class="col-span-2 sm:col-span-1 bg-cream p-2 rounded-xl border border-cream-border shadow-md cursor-pointer group" onclick="handlePhotoClick('P12')">
+                        <div class="h-36 overflow-hidden rounded-lg bg-slateBlue-dark">
+                            <img src="https://placehold.co/800x1000/FAF8F4/1C272C?text=P12+XHS+BLOGGER" alt="P12" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="mt-2 text-[10px] font-display font-bold text-textDark text-center">[P12] 小红书博主</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Cards Container -->
+            <div id="career-container" class="space-y-6">
+                <!-- Populated dynamically by JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 04: STORIES -->
+        <section id="stories" class="scroll-mt-28 space-y-8 reveal-element">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 text-white border-b border-white/10 pb-4">
+                <div>
+                    <div class="font-display text-xs font-bold text-brickRed tracking-widest uppercase">04. STORIES</div>
+                    <h2 class="font-display text-2xl sm:text-4xl font-bold mt-1">NARRATIVES & MEMORIES · 故事记录</h2>
+                </div>
+                <!-- Layout View Switcher -->
+                <div class="flex items-center space-x-2 text-xs font-display">
+                    <span class="text-slateBlue-soft">VIEW / 视图:</span>
+                    <button onclick="setStoryLayout('grid')" id="story-btn-grid" class="p-1.5 px-2.5 rounded bg-brickRed text-white font-bold"><i class="fa-solid fa-border-all"></i> GRID</button>
+                    <button onclick="setStoryLayout('list')" id="story-btn-list" class="p-1.5 px-2.5 rounded bg-white/10 text-white hover:bg-white/20"><i class="fa-solid fa-list"></i> LIST</button>
+                </div>
+            </div>
+
+            <!-- Stories Cards Container (P13 - P16) -->
+            <div id="story-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Populated dynamically by JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 05: MISC. -->
+        <section id="misc" class="scroll-mt-28 space-y-10 reveal-element">
+            <div class="text-white border-b border-white/10 pb-4">
+                <div class="font-display text-xs font-bold text-brickRed tracking-widest uppercase">05. MISC.</div>
+                <h2 class="font-display text-2xl sm:text-4xl font-bold mt-1">HOBBIES & SKILLS · 爱好与技能</h2>
+                <p class="text-xs font-sans text-slateBlue-soft mt-1">这里记录了我的爱好与技能。</p>
+            </div>
+
+            <!-- Cooking Works Section (P17-P24) -->
+            <div class="bg-cream p-6 sm:p-8 rounded-2xl border border-cream-border shadow-lg space-y-5">
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-cream-border pb-3">
+                    <div>
+                        <span class="text-xs font-display font-bold text-brickRed uppercase">CULINARY CREATIONS</span>
+                        <h3 class="font-display text-xl font-bold text-textDark">烹饪作品 (P17–P24)</h3>
+                    </div>
+                    <span class="text-xs font-sans text-textMuted">以下是我的烹饪作品展示，点击可放大查看细节</span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <script>
+                        // Dynamically render cooking grid
+                    </script>
+                    <div class="bg-white p-2 rounded-xl border border-cream-border cursor-pointer group" onclick="handlePhotoClick('P17')">
+                        <div class="h-32 rounded-lg overflow-hidden bg-slateBlue-dark">
+                            <img src="https://placehold.co/600x600/C94E38/FFFFFF?text=P17+COOKING" alt="P17" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <span class="block text-[10px] font-display font-bold text-center text-textMuted mt-1.5">[P17] 烹饪作品</span>
+                    </div>
+                    <div class="bg-white p-2 rounded-xl border border-cream-border cursor-pointer group" onclick="handlePhotoClick('P18')">
+                        <div class="h-32 rounded-lg overflow-hidden bg-slateBlue-dark">
+                            <img src="https://placehold.co/600x600/23333D/FFFFFF?text=P18+COOKING" alt="P18" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <span class="block text-[10px] font-display font-bold text-center text-textMuted mt-1.5">[P18] 烹饪作品</span>
+                    </div>
+                    <div class="bg-white p-2 rounded-xl border border-cream-border cursor-pointer group" onclick="handlePhotoClick('P19')">
+                        <div class="h-32 rounded-lg overflow-hidden bg-slateBlue-dark">
+                            <img src="https://placehold.co/600x600/809AA9/FFFFFF?text=P19+COOKING" alt="P19" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <span class="block text-[10px] font-display font-bold text-center text-textMuted mt-1.5">[P19] 烹饪作品</span>
+                    </div>
+                    <div class="bg-white p-2 rounded-xl border border-cream-border cursor-pointer group" onclick="handlePhotoClick('P20')">
+                        <div class="h-32 rounded-lg overflow-hidden bg-slateBlue-dark">
+                            <img src="https://placehold.co/600x600/FAF8F4/1C272C?text=P20+COOKING" alt="P20" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <span class="block text-[10px] font-display font-bold text-center text-textMuted mt-1.5">[P20] 烹饪作品</span>
+                    </div>
+                    <div class="bg-white p-2 rounded-xl border border-cream-border cursor-pointer group" onclick="handlePhotoClick('P21')">
+                        <div class="h-32 rounded-lg overflow-hidden bg-slateBlue-dark">
+                            <img src="https://placehold.co/600x600/4B6270/FFFFFF?text=P21+COOKING" alt="P21" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <span class="block text-[10px] font-display font-bold text-center text-textMuted mt-1.5">[P21] 烹饪作品</span>
+                    </div>
+                    <div class="bg-white p-2 rounded-xl border border-cream-border cursor-pointer group" onclick="handlePhotoClick('P22')">
+                        <div class="h-32 rounded-lg overflow-hidden bg-slateBlue-dark">
+                            <img src="https://placehold.co/600x600/C94E38/FFFFFF?text=P22+COOKING" alt="P22" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <span class="block text-[10px] font-display font-bold text-center text-textMuted mt-1.5">[P22] 烹饪作品</span>
+                    </div>
+                    <div class="bg-white p-2 rounded-xl border border-cream-border cursor-pointer group" onclick="handlePhotoClick('P23')">
+                        <div class="h-32 rounded-lg overflow-hidden bg-slateBlue-dark">
+                            <img src="https://placehold.co/600x600/23333D/FFFFFF?text=P23+COOKING" alt="P23" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <span class="block text-[10px] font-display font-bold text-center text-textMuted mt-1.5">[P23] 烹饪作品</span>
+                    </div>
+                    <div class="bg-white p-2 rounded-xl border border-cream-border cursor-pointer group" onclick="handlePhotoClick('P24')">
+                        <div class="h-32 rounded-lg overflow-hidden bg-slateBlue-dark">
+                            <img src="https://placehold.co/600x600/809AA9/FFFFFF?text=P24+COOKING" alt="P24" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <span class="block text-[10px] font-display font-bold text-center text-textMuted mt-1.5">[P24] 烹饪作品</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Media Collections Grid: Reading, Movies, TV Shows, Video Editing -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Reading Card -->
+                <div class="bg-cream p-6 rounded-2xl border border-cream-border shadow-lg space-y-4">
+                    <div class="flex justify-between items-center text-xs font-display text-brickRed font-bold border-b border-cream-border pb-3">
+                        <span>READING LIST / 对我影响较大的书目</span>
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div id="books-list" class="flex flex-wrap gap-2 text-xs font-sans">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Video Editing Card -->
+                <div class="bg-slateBlue-deep text-white p-6 rounded-2xl border border-white/10 shadow-lg space-y-4 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-xs font-display text-slateBlue-soft font-bold border-b border-white/10 pb-3">
+                            <span>VIDEO EDITING / 剪辑作品</span>
+                            <i class="fa-solid fa-film text-brickRed"></i>
+                        </div>
+                        <p class="font-sans text-sm text-slateBlue-soft leading-relaxed">
+                            我的剪辑作品与视频记录，欢迎关注并移步我的微信视频号观看：
+                        </p>
+                    </div>
+                    <div class="p-4 bg-white/10 rounded-xl border border-white/10 flex items-center justify-between">
+                        <div class="space-y-0.5">
+                            <span class="block text-[10px] text-slateBlue-soft font-display uppercase">WECHAT CHANNEL / 微信视频号</span>
+                            <span class="font-display font-bold text-base text-white">【麻利憩】</span>
+                        </div>
+                        <span class="px-3 py-1 bg-brickRed text-white text-xs font-display font-bold rounded">视频号</span>
+                    </div>
+                </div>
+
+                <!-- Favorite Movies Card -->
+                <div class="bg-cream p-6 rounded-2xl border border-cream-border shadow-lg space-y-4">
+                    <div class="flex justify-between items-center text-xs font-display text-brickRed font-bold border-b border-cream-border pb-3">
+                        <span>FAVORITE MOVIES / 我喜欢的电影</span>
+                        <i class="fa-solid fa-clapperboard"></i>
+                    </div>
+                    <div id="movies-list" class="flex flex-wrap gap-2 text-xs font-sans">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Favorite TV Shows Card -->
+                <div class="bg-cream p-6 rounded-2xl border border-cream-border shadow-lg space-y-4">
+                    <div class="flex justify-between items-center text-xs font-display text-brickRed font-bold border-b border-cream-border pb-3">
+                        <span>TV SHOWS / 我喜欢的美剧</span>
+                        <i class="fa-solid fa-tv"></i>
+                    </div>
+                    <div id="shows-list" class="flex flex-wrap gap-2 text-xs font-sans">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BACK TO TOP FAB BUTTON -->
+    <button id="back-to-top-btn" onclick="scrollToTop()" class="fixed bottom-6 right-6 z-30 p-3.5 bg-brickRed hover:bg-brickRed-hover active:scale-90 text-white rounded-full shadow-2xl opacity-0 pointer-events-none transition-all duration-300" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up text-base"></i>
+    </button>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/10 bg-slateBlue-deep text-white py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-6 text-xs font-display">
+            <div class="space-y-1 text-center sm:text-left">
+                <p class="font-bold text-base">VITA'S JOURNAL — 马丽祈</p>
+                <p class="text-slateBlue-soft">Personal Archive & Visual Journal © 2026</p>
+            </div>
+            
+            <div class="flex items-center space-x-6 text-slateBlue-soft">
+                <a href="#home" class="hover:text-white transition-colors">TOP / 返回顶部</a>
+                <button onclick="toggleGuideModal()" class="hover:text-white transition-colors">CONFIG GUIDE / 配置指南</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden flex-col justify-between p-4 sm:p-8 text-white transition-opacity duration-300">
+        <div class="flex justify-between items-center max-w-6xl mx-auto w-full z-10">
+            <div class="space-y-0.5 font-display">
+                <span id="lightbox-id" class="text-xs font-bold text-white bg-brickRed px-2 py-0.5 rounded">P01</span>
+                <p id="lightbox-label" class="text-xs text-slateBlue-soft">ARCHIVAL SELECTION 01</p>
+            </div>
+            <button onclick="closeLightbox()" class="text-slateBlue-soft hover:text-white p-2 text-2xl focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="relative flex-1 flex items-center justify-center my-4 overflow-hidden">
+            <button onclick="prevLightboxImage()" class="absolute left-2 sm:left-6 z-20 text-white/70 hover:text-white bg-black/50 hover:bg-black/80 p-3 sm:p-4 rounded-full backdrop-blur transition-all">
+                <i class="fa-solid fa-chevron-left text-xl"></i>
+            </button>
+
+            <img id="lightbox-img" src="" alt="Enlarged View" class="max-h-[75vh] max-w-full object-contain rounded-lg shadow-2xl transition-all duration-300">
+
+            <button onclick="nextLightboxImage()" class="absolute right-2 sm:right-6 z-20 text-white/70 hover:text-white bg-black/50 hover:bg-black/80 p-3 sm:p-4 rounded-full backdrop-blur transition-all">
+                <i class="fa-solid fa-chevron-right text-xl"></i>
+            </button>
+        </div>
+
+        <div class="max-w-2xl mx-auto w-full text-center space-y-1 font-sans">
+            <p id="lightbox-caption" class="text-xs sm:text-sm text-gray-200">Photo description caption</p>
+            <p class="text-[10px] font-display text-slateBlue-soft">USE ESC TO EXIT · LEFT/RIGHT ARROWS TO SWITCH</p>
+        </div>
+    </div>
+
+    <!-- RESUME MODAL -->
+    <div id="resume-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-cream max-w-lg w-full rounded-2xl border border-cream-border overflow-hidden shadow-2xl p-6 space-y-5">
+            <div class="flex justify-between items-center border-b border-cream-border pb-3">
+                <h3 class="font-display font-bold text-lg text-textDark">RESUME DOWNLOAD / 履历下载</h3>
+                <button onclick="closeResumeModal()" class="text-textMuted hover:text-brickRed text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-xs text-textMuted leading-relaxed">
+                获取马丽祈 (Vita) 的详细个人履历文件：
+            </p>
+            <div class="p-4 bg-slateBlue-deep text-white rounded-xl space-y-2 text-xs font-display">
+                <div><i class="fa-solid fa-file-pdf text-brickRed mr-1.5"></i> Vita_Maliqi_Resume_2026.pdf</div>
+                <div class="text-[10px] text-slateBlue-soft">Status: Ready for replacement</div>
+            </div>
+            <div class="flex justify-end space-x-3 text-xs font-display font-bold">
+                <button onclick="closeResumeModal()" class="px-4 py-2 bg-cream-border text-textDark rounded-lg">CLOSE / 关闭</button>
+                <button onclick="alert('正在开始下载马丽祈的简历...'); closeResumeModal();" class="px-4 py-2 bg-brickRed text-white rounded-lg hover:bg-brickRed-hover">DOWNLOAD PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT SHEET MODAL -->
+    <div id="contact-sheet" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-cream max-w-md w-full rounded-2xl border border-cream-border overflow-hidden shadow-2xl p-6 space-y-4">
+            <div class="flex justify-between items-center border-b border-cream-border pb-3">
+                <h3 class="font-display font-bold text-lg text-textDark">GET IN TOUCH / 联系沟通</h3>
+                <button onclick="closeContactSheet()" class="text-textMuted hover:text-brickRed text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-xs text-textMuted">可通过下方表单或邮箱 yueshangzhiya@qq.com 与我联系：</p>
+            <form onsubmit="event.preventDefault(); alert('消息已发送！谢谢您的沟通。'); closeContactSheet();" class="space-y-3 text-xs font-display">
+                <div>
+                    <label class="block text-textDark font-bold mb-1">NAME / 您的姓名</label>
+                    <input type="text" required class="w-full px-3 py-2 bg-white rounded border border-cream-border focus:outline-none focus:border-brickRed">
+                </div>
+                <div>
+                    <label class="block text-textDark font-bold mb-1">EMAIL / 邮箱地址</label>
+                    <input type="email" required class="w-full px-3 py-2 bg-white rounded border border-cream-border focus:outline-none focus:border-brickRed">
+                </div>
+                <div>
+                    <label class="block text-textDark font-bold mb-1">MESSAGE / 留言内容</label>
+                    <textarea rows="3" required class="w-full px-3 py-2 bg-white rounded border border-cream-border focus:outline-none focus:border-brickRed"></textarea>
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-brickRed text-white font-bold rounded-lg hover:bg-brickRed-hover transition-colors">
+                    SEND MESSAGE / 发送消息
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- GUIDE MODAL FOR MAPPING -->
+    <div id="guide-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-cream max-w-2xl w-full max-h-[85vh] rounded-2xl border border-cream-border overflow-hidden shadow-2xl flex flex-col">
+            <div class="p-5 bg-slateBlue-deep text-white flex justify-between items-center">
+                <h3 class="font-display font-bold text-base">PHOTO MAPPING & CONFIGURATION GUIDE / 图片配置指南</h3>
+                <button onclick="toggleGuideModal()" class="text-slateBlue-soft hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-4 text-xs font-sans text-textDark leading-relaxed">
+                <p class="bg-slateBlue-soft/20 p-3 rounded border border-slateBlue/30">
+                    可在代码 <code class="font-bold text-brickRed font-mono">window.VITA_DATA</code> 中自由替换照片路径与文案。
+                </p>
+                <div class="space-y-2">
+                    <h4 class="font-bold font-display text-sm text-brickRed">CURRENT MAPPING INDEX (当前图片编号清单):</h4>
+                    <ul class="list-disc list-inside space-y-1 font-mono text-[11px] text-textMuted">
+                        <li>P01 – P06: 首页 Hero 照片墙</li>
+                        <li>P07: 关于我个人肖像卡片</li>
+                        <li>P08 – P12: 职业经历专区照片墙（5张）</li>
+                        <li>P13 – P16: 图文故事栏目配套照片（4张）</li>
+                        <li>P17 – P24: 烹饪作品卡片（8张）</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="p-4 bg-cream-border/40 text-right">
+                <button onclick="toggleGuideModal()" class="px-4 py-2 bg-brickRed text-white font-display text-xs font-bold rounded-lg">CLOSE GUIDE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        let currentLightboxIndex = 0;
+
+        // Render Home Gallery Rail
+        function renderHomeGallery() {
+            const track = document.getElementById('gallery-track');
+            if (!track) return;
+
+            const homePhotos = window.VITA_DATA.photos.filter(p => p.section === 'HOME');
+
+            track.innerHTML = homePhotos.map(photo => {
+                let widthClass = "w-64 sm:w-72";
+                if (photo.aspect === 'landscape') widthClass = "w-80 sm:w-[400px]";
+
+                return `
+                    <div class="flex-none ${widthClass} group/card select-none">
+                        <div class="bg-cream rounded-xl overflow-hidden border border-cream-border shadow-md hover:border-brickRed transition-all">
+                            <div class="relative h-80 sm:h-96 overflow-hidden bg-slateBlue-dark">
+                                <img src="${photo.url}" alt="${photo.title}" class="gallery-photo w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500" data-id="${photo.id}">
+                                <span class="absolute top-3 left-3 bg-black/60 text-white font-display text-[10px] px-2 py-0.5 rounded backdrop-blur">
+                                    [${photo.id}]
+                                </span>
+                            </div>
+                            <div class="p-3 bg-cream flex justify-between items-center text-xs font-display">
+                                <span class="font-bold text-textDark group-hover/card:text-brickRed transition-colors">${photo.title}</span>
+                                <i class="fa-solid fa-expand text-textMuted"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render About Me Profile Data
+        function renderProfileData() {
+            const valuesContainer = document.getElementById('tab-content-1');
+            const interestsContainer = document.getElementById('tab-content-2');
+
+            if (valuesContainer) {
+                valuesContainer.innerHTML = window.VITA_DATA.profile.coreValues.map(val => 
+                    `<span class="px-3 py-1 bg-white rounded-md border border-cream-border font-bold text-textDark text-xs"><i class="fa-solid fa-check text-brickRed mr-1"></i>${val}</span>`
+                ).join('');
+            }
+
+            if (interestsContainer) {
+                interestsContainer.innerHTML = window.VITA_DATA.profile.interests.map(item => 
+                    `<span class="px-3 py-1 bg-white rounded-md border border-cream-border font-bold text-textDark text-xs"><i class="fa-solid fa-star text-brickRed mr-1"></i>${item}</span>`
+                ).join('');
+            }
+        }
+
+        // Render Career Cards
+        function renderCareer() {
+            const container = document.getElementById('career-container');
+            if (!container) return;
+
+            container.innerHTML = window.VITA_DATA.career.map(item => `
+                <div class="career-item ${item.type} bg-cream p-6 sm:p-8 rounded-2xl border border-cream-border shadow-lg space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-cream-border pb-4">
+                        <div>
+                            <span class="text-xs font-display font-bold text-brickRed uppercase">[${item.type.toUpperCase()}]</span>
+                            <h3 class="font-display text-xl font-bold text-textDark mt-0.5">${item.titleEn}</h3>
+                            <h4 class="font-sans text-sm font-semibold text-slateBlue-dark">${item.titleCn}</h4>
+                        </div>
+                        <span class="text-xs font-display font-semibold text-white bg-slateBlue-dark px-3 py-1 rounded-full self-start sm:self-auto">
+                            ${item.period}
+                        </span>
+                    </div>
+                    <p class="font-sans text-xs sm:text-sm text-textMuted leading-relaxed">
+                        ${item.content}
+                    </p>
+                </div>
+            `).join('');
+        }
+
+        // Render Stories
+        function renderStories() {
+            const container = document.getElementById('story-container');
+            if (!container) return;
+
+            const storyPhotos = window.VITA_DATA.photos.filter(p => p.section === 'STORIES');
+
+            container.innerHTML = storyPhotos.map(photo => `
+                <div class="bg-cream rounded-2xl overflow-hidden border border-cream-border shadow-lg flex flex-col justify-between">
+                    <div class="relative h-64 sm:h-72 bg-slateBlue-dark overflow-hidden group cursor-pointer" onclick="handlePhotoClick('${photo.id}')">
+                        <img src="${photo.url}" alt="${photo.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-black/60 text-white font-display text-[10px] px-2.5 py-1 rounded backdrop-blur">
+                            [${photo.id}] ${photo.title}
+                        </span>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <span class="text-xs font-display font-bold text-brickRed uppercase">${photo.chineseTitle}</span>
+                        <p class="font-sans text-xs sm:text-sm text-textMuted leading-relaxed">
+                            ${photo.chineseCaption}
+                        </p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Media Collections in Misc Section
+        function renderMiscCollections() {
+            const booksContainer = document.getElementById('books-list');
+            const moviesContainer = document.getElementById('movies-list');
+            const showsContainer = document.getElementById('shows-list');
+
+            if (booksContainer) {
+                booksContainer.innerHTML = window.VITA_DATA.books.map(b => 
+                    `<span class="px-2.5 py-1 bg-white border border-cream-border rounded text-textDark font-medium">${b}</span>`
+                ).join('');
+            }
+            if (moviesContainer) {
+                moviesContainer.innerHTML = window.VITA_DATA.movies.map(m => 
+                    `<span class="px-2.5 py-1 bg-white border border-cream-border rounded text-textDark font-medium">${m}</span>`
+                ).join('');
+            }
+            if (showsContainer) {
+                showsContainer.innerHTML = window.VITA_DATA.shows.map(s => 
+                    `<span class="px-2.5 py-1 bg-white border border-cream-border rounded text-textDark font-medium">${s}</span>`
+                ).join('');
+            }
+        }
+
+        // Lightbox Functions
+        function handlePhotoClick(photoId) {
+            const index = window.VITA_DATA.photos.findIndex(p => p.id === photoId);
+            if (index !== -1) {
+                currentLightboxIndex = index;
+                updateLightbox();
+                openLightboxModal();
+            }
+        }
+
+        function openLightboxModal() {
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateLightbox() {
+            const photo = window.VITA_DATA.photos[currentLightboxIndex];
+            if (!photo) return;
+            document.getElementById('lightbox-img').src = photo.url;
+            document.getElementById('lightbox-id').textContent = photo.id;
+            document.getElementById('lightbox-label').textContent = `${photo.title} / ${photo.chineseTitle}`;
+            document.getElementById('lightbox-caption').textContent = `${photo.caption} (${photo.chineseCaption})`;
+        }
+
+        function prevLightboxImage() {
+            const total = window.VITA_DATA.photos.length;
+            currentLightboxIndex = (currentLightboxIndex - 1 + total) % total;
+            updateLightbox();
+        }
+
+        function nextLightboxImage() {
+            const total = window.VITA_DATA.photos.length;
+            currentLightboxIndex = (currentLightboxIndex + 1) % total;
+            updateLightbox();
+        }
+
+        // Drag to Scroll Logic
+        function initDragScroll() {
+            const slider = document.getElementById('gallery-track');
+            if (!slider) return;
+
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            let moveDistance = 0;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                moveDistance = 0;
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+
+            slider.addEventListener('mouseleave', () => { isDown = false; });
+            slider.addEventListener('mouseup', (e) => {
+                isDown = false;
+                if (moveDistance < 6 && e.target.classList.contains('gallery-photo')) {
+                    const id = e.target.getAttribute('data-id');
+                    if (id) handlePhotoClick(id);
+                }
+            });
+
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 1.8;
+                moveDistance = Math.abs(x - startX);
+                slider.scrollLeft = scrollLeft - walk;
+            });
+        }
+
+        // Scroll Observer Logic
+        function initScrollEffects() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal-element').forEach(el => observer.observe(el));
+
+            const sections = document.querySelectorAll('section');
+            const dirLinks = {
+                'home': document.getElementById('dir-home'),
+                'about': document.getElementById('dir-about'),
+                'career': document.getElementById('dir-career'),
+                'stories': document.getElementById('dir-stories'),
+                'misc': document.getElementById('dir-misc')
+            };
+
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('main-header');
+                const topBtn = document.getElementById('back-to-top-btn');
+
+                if (window.scrollY > 50) {
+                    header.classList.add('glass-scrolled');
+                } else {
+                    header.classList.remove('glass-scrolled');
+                }
+
+                if (window.scrollY > 300) {
+                    topBtn.classList.remove('opacity-0', 'pointer-events-none');
+                } else {
+                    topBtn.classList.add('opacity-0', 'pointer-events-none');
+                }
+
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 150;
+                    if (window.scrollY >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                Object.keys(dirLinks).forEach(key => {
+                    if (dirLinks[key]) {
+                        if (key === current) {
+                            dirLinks[key].classList.add('active');
+                        } else {
+                            dirLinks[key].classList.remove('active');
+                        }
+                    }
+                });
+            });
+        }
+
+        // UI Toggles & Modals
+        function toggleQuickJumpBar() {
+            document.getElementById('quick-jump-bar').classList.toggle('hidden');
+        }
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+        function openResumeModal() {
+            document.getElementById('resume-modal').classList.remove('hidden');
+        }
+        function closeResumeModal() {
+            document.getElementById('resume-modal').classList.add('hidden');
+        }
+        function openContactSheet() {
+            document.getElementById('contact-sheet').classList.remove('hidden');
+        }
+        function closeContactSheet() {
+            document.getElementById('contact-sheet').classList.add('hidden');
+        }
+        function toggleGuideModal() {
+            document.getElementById('guide-modal').classList.toggle('hidden');
+        }
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Tab Switchers
+        function switchAboutTab(tabIndex) {
+            const btn1 = document.getElementById('tab-btn-1');
+            const btn2 = document.getElementById('tab-btn-2');
+            const content1 = document.getElementById('tab-content-1');
+            const content2 = document.getElementById('tab-content-2');
+
+            if (tabIndex === 1) {
+                btn1.className = "px-3 py-1.5 rounded-md bg-brickRed text-white transition-all";
+                btn2.className = "px-3 py-1.5 rounded-md bg-cream-border text-textDark hover:bg-slateBlue-soft hover:text-white transition-all";
+                content1.classList.remove('hidden');
+                content2.classList.add('hidden');
+            } else {
+                btn2.className = "px-3 py-1.5 rounded-md bg-brickRed text-white transition-all";
+                btn1.className = "px-3 py-1.5 rounded-md bg-cream-border text-textDark hover:bg-slateBlue-soft hover:text-white transition-all";
+                content2.classList.remove('hidden');
+                content1.classList.add('hidden');
+            }
+        }
+
+        // Career Filters
+        function filterCareer(type) {
+            const items = document.querySelectorAll('.career-item');
+            const buttons = document.querySelectorAll('.career-filter-btn');
+
+            buttons.forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(type) || (type === 'all' && btn.textContent === 'ALL')) {
+                    btn.className = "career-filter-btn px-2.5 py-1 rounded bg-brickRed text-white font-bold";
+                } else {
+                    btn.className = "career-filter-btn px-2.5 py-1 rounded bg-white/10 text-white hover:bg-white/20";
+                }
+            });
+
+            items.forEach(item => {
+                if (type === 'all' || item.classList.contains(type)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Story Layout
+        function setStoryLayout(layout) {
+            const container = document.getElementById('story-container');
+            const btnGrid = document.getElementById('story-btn-grid');
+            const btnList = document.getElementById('story-btn-list');
+
+            if (layout === 'list') {
+                container.className = "space-y-6";
+                btnList.className = "p-1.5 px-2.5 rounded bg-brickRed text-white font-bold";
+                btnGrid.className = "p-1.5 px-2.5 rounded bg-white/10 text-white hover:bg-white/20";
+            } else {
+                container.className = "grid grid-cols-1 md:grid-cols-2 gap-8";
+                btnGrid.className = "p-1.5 px-2.5 rounded bg-brickRed text-white font-bold";
+                btnList.className = "p-1.5 px-2.5 rounded bg-white/10 text-white hover:bg-white/20";
+            }
+        }
+
+        // Key Listeners
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('lightbox-modal');
+            if (modal && !modal.classList.contains('hidden')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') prevLightboxImage();
+                if (e.key === 'ArrowRight') nextLightboxImage();
+            }
+        });
+
+        // Initialize Everything
+        window.addEventListener('load', () => {
+            renderHomeGallery();
+            renderProfileData();
+            renderCareer();
+            renderStories();
+            renderMiscCollections();
+            initDragScroll();
+            initScrollEffects();
+        });
+    </script>
+</body>
+</html>
